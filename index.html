@@ -248,6 +248,7 @@
 						<h3>Tools</h3>
                         <div id="fig31" style="margin: 0 auto"></div>
 						<p>
+                            <small>"Click" into the tiers!<br /></small>
 							<i><small>- Data from <a href="http://bioinfsurvey.org/analysis/programming_languages/" class="lightview" data-lightview-type="iframe" data-lightview-options="width: '90%', height: '100%'">Bioinformatics Survey</a></small></i>
 						</p>
 					</section>
@@ -399,13 +400,11 @@
 					
 					<section data-state="python"><h1>Searching</h1>
 									<div id="fig41p">
-<pre><code contenteditable>from Bio import Entrez
+<pre><code contenteditable class="python">from Bio import Entrez
 Entrez.email = "bjorgep@students.wwu.edu"
-opuntia_rpl16_search_results = Entrez.read( Entrez.esearch( db         = "nucleotide",
-                                                            term       = "Opuntia[orgn] and rpl16",
-                                                            usehistory = "y"
-                                                           )
-                                           )</code></pre>
+search_handle = Entrez.esearch(db="nucleotide", term="Opuntia[orgn] and rpl16", usehistory="y")
+opuntia_rpl16_search_results = Entrez.read(search_handle)
+search_handle.close()</code></pre>
 									</div>
 						<p>
 							<i><small><a href="fig41p" class="lightview" data-lightview-type="inline">View Fullscreen</a> | <a href="http://en.wikipedia.org/wiki/Opuntia" class="lightview" data-lightview-type="iframe" data-lightview-options="width: '90%', height: '100%'">Opuntia (Wiki)</a> | <a href="http://en.wikipedia.org/wiki/Chloroplast" class="lightview" data-lightview-type="iframe" data-lightview-options="width: '90%', height: '100%'">rpl16 (Wiki)</a> | <a href="http://www.ncbi.nlm.nih.gov/nuccore/?term=Opuntia[orgn]%20and%20rpl16" class="lightview" data-lightview-type="iframe" data-lightview-options="width: '90%', height: '100%'">Search Results</a> | <a href="http://biopython.org/DIST/docs/api/Bio.Entrez-module.html" class="lightview" data-lightview-type="iframe" data-lightview-options="width: '90%', height: '100%'">Entrez Technical Docs</a> </small></i>
@@ -413,14 +412,10 @@ opuntia_rpl16_search_results = Entrez.read( Entrez.esearch( db         = "nucleo
 					</section>
 					<section data-state="python"><h1>Retrieving</h1>
 									<div id="fig42p">
-<pre><code contenteditable>file = open("opuntia_rpl16.fasta", "w")
-opuntia_rpl16_fasta_data = Entrez.efetch( db        = "nucleotide",
-                                          rettype   = "fasta",
-                                          retmode   = "text", 
-                                          webenv    = opuntia_rpl16_search_results["WebEnv"], 
-                                          query_key = opuntia_rpl16_search_results["QueryKey"]
-                                         ).read()
-file.write(opuntia_rpl16_fasta_data)</code></pre>
+<pre><code contenteditable class="python">file = open("opuntia_rpl16.fasta", "w")
+opuntia_rpl16_fasta_data = Entrez.efetch(db="nucleotide",rettype="fasta", retmode="text", webenv=opuntia_rpl16_search_results["WebEnv"], query_key=opuntia_rpl16_search_results["QueryKey"]).read()
+file.write(opuntia_rpl16_fasta_data)
+file.close()</code></pre>
 									</div>
 						<p>
 							<i><small><a href="fig42p" class="lightview" data-lightview-type="inline">View Fullscreen</a> | <a href="opuntia_rpl16.fasta" class="lightview" data-lightview-type="iframe" data-lightview-options="width: '90%', height: '100%'">Results File</a> | <a href="http://www.ncbi.nlm.nih.gov/nuccore/?term=Opuntia[orgn]%20and%20rpl16" class="lightview" data-lightview-type="iframe" data-lightview-options="width: '90%', height: '100%'">Equivalent Web Data (Click FASTA for each result)</a></small></i>
@@ -428,29 +423,21 @@ file.write(opuntia_rpl16_fasta_data)</code></pre>
 					</section>
 					<section data-state="python"><h1>Functions</h1>
 									<div id="fig43p">
-<pre><code contenteditable>def search_and_retrieve_fasta(database, searchterm, filename, batch_size=3):
+<pre><code contenteditable class="python">from Bio import Entrez
+Entrez.email = "bjorgep@students.wwu.edu"
+
+def search_and_retrieve_fasta(database, searchterm, filename, batch_size=3):
   # SEARCH
-  search_results = Entrez.read( Entrez.esearch( db         = database,
-                                                term       = searchterm,
-                                                usehistory = "y"
-                                               )
-                               )
+  search_results = Entrez.read( Entrez.esearch(db=database, term=searchterm, usehistory="y") )
   # RETRIEVE
   file = open(filename, "w")
   count = int(search_results['Count'])
   for start in range(0,count,batch_size):
     end = min(count, start+batch_size)
     print "Going to download record %i to %i" % (start+1, end)
-    data = Entrez.efetch( db        = database,
-                          rettype   = "fasta", 
-                          retmode   = "text", 
-                          retstart  = start, 
-                          retmax    = batch_size, 
-                          webenv    = search_results["WebEnv"], 
-                          query_key = search_results["QueryKey"]
-                         ).read()
+    data = Entrez.efetch(db=database,rettype="fasta", retmode="text", retstart=start, retmax=batch_size, webenv=search_results["WebEnv"], query_key=search_results["QueryKey"]).read()
     file.write(data)
-
+  file.close()
 
 # You can now do all these steps in just one line!
 search_and_retrieve_fasta("nucleotide", "Blossfeldia[orgn] and rpl16", "blossfeldia_rpl16.fasta")</code></pre>
@@ -461,8 +448,8 @@ search_and_retrieve_fasta("nucleotide", "Blossfeldia[orgn] and rpl16", "blossfel
 					</section>
 					<section data-state="python"><h1>Parsing</h1>
 									<div id="fig45p">
-<pre><code contenteditable>from Bio import SeqIO
-blossfeldia_rpl16_sequences = SeqIO.parse("blossfeldia_rpl16.fasta", "fasta")</code></pre>
+<pre><code contenteditable class="python">from Bio import SeqIO
+blossfeldia_rpl16_sequences = list(SeqIO.parse("blossfeldia_rpl16.fasta", "fasta"))</code></pre>
 									</div>
 						<p>
 							<i><small><a href="fig45p" class="lightview" data-lightview-type="inline">View Fullscreen</a> | <a href="http://biopython.org/wiki/SeqIO" class="lightview" data-lightview-type="iframe" data-lightview-options="width: '90%', height: '100%'">SeqIO Docs</a> </small></i>
@@ -470,17 +457,17 @@ blossfeldia_rpl16_sequences = SeqIO.parse("blossfeldia_rpl16.fasta", "fasta")</c
 					</section>
 					<section data-state="python"><h1>Sequence Objects</h1>
 									<div id="fig46p">
-<pre><code contenteditable>first_blossfeldia_rpl16_sequence = list(blossfeldia_rpl16_sequences)[0].seq
+<pre><code contenteditable class="python">first_blossfeldia_rpl16_sequence = blossfeldia_rpl16_sequences[0].seq
 # GC %
 from Bio.SeqUtils import GC
 GC(first_blossfeldia_rpl16_sequence)
 
-# DNA --> RNA
+# DNA --> RNA --> DNA
 first_blossfeldia_rpl16_sequence.transcribe()
+first_blossfeldia_rpl16_sequence.back_transcribe()
 
 # DNA Coding Strand --> Protein
-first_blossfeldia_rpl16_sequence.translate()
-</code></pre>
+first_blossfeldia_rpl16_sequence.translate()</code></pre>
 									</div>
 						<p>
 							<i><small><a href="fig46p" class="lightview" data-lightview-type="inline">View Fullscreen</a> | <a href="http://biopython.org/wiki/Seq" class="lightview" data-lightview-type="iframe" data-lightview-options="width: '90%', height: '100%'">Sequence Docs</a>  | <a href="http://biopython.org/DIST/docs/api/Bio.SeqUtils-module.html" class="lightview" data-lightview-type="iframe" data-lightview-options="width: '90%', height: '100%'">SeqUtils Docs</a></small></i>
@@ -488,15 +475,14 @@ first_blossfeldia_rpl16_sequence.translate()
 					</section>
 					<section data-state="python"><h1>Blasting</h1>
 									<div id="fig47p">
-<pre><code contenteditable>from Bio.Blast import NCBIWWW
+<pre><code contenteditable class="python">from Bio.Blast import NCBIWWW
 from Bio import SeqIO
-blast_search_data = NCBIWWW.qblast( "blastn",
-                                    "nt", 
-                                    first_blossfeldia_rpl16_sequence
-                                   ).read()
+first_blossfeldia_rpl16_sequence = blossfeldia_rpl16_sequences[0].seq
+result_handle = NCBIWWW.qblast("blastn", "nt", _first_blossfeldia_rpl16_sequence)
 save_file = open("blast_search_on_first_blossfeldia_rpl16_sequence.xml", "w")
-save_file.write(blast_search_data)
-</code></pre>
+save_file.write(result_handle.read())
+save_file.close()
+result_handle.close()</code></pre>
 									</div>
 						<p>
 							<i><small><a href="fig47p" class="lightview" data-lightview-type="inline">View Fullscreen</a> | <a href="blast_search_on_first_blossfeldia_rpl16_sequence.xml" class="lightview" data-lightview-type="iframe" data-lightview-options="width: '90%', height: '100%'">XML Results</a></small></i>
@@ -507,7 +493,7 @@ save_file.write(blast_search_data)
 				<section data-state="soothe">
 					<h1>Sequence Alignment</h1>
 					<div id="fig51p">
-<pre><code contenteditable># Clustal
+<pre><code contenteditable class="python"># Clustal
 import os
 from Bio.Align.Applications import ClustalwCommandline
 
