@@ -2,8 +2,9 @@
 ##An interactive presentation by Philip Bjorge
 
 ###Viewing:
+**Presentation with correctly formatted Python in the "functional" branch!**
 Open up index.html in Chrome (recommended) or Firefox.
-Working presentation code is in "presentation scripts.py" or in the "functional" branch.
+Working presentation code is in "presentation scripts.py"
 
 ###Original Content:
 Released under the **Creative Commmons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) License**:
