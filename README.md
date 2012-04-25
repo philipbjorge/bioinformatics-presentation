@@ -3,6 +3,7 @@
 
 ###Viewing:
 **Presentation with correctly formatted Python in the "functional" branch!**
+
 Open up index.html in Chrome (recommended) or Firefox.
 Working presentation code is in "presentation scripts.py"
 
