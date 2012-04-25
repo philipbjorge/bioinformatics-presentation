@@ -7,10 +7,10 @@ Working presentation code is in "presentation scripts.py" or in the "functional"
 
 ###Original Content:
 Released under the **Creative Commmons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) License**:
-1. The "what is an api?" illustration.
-2. Presented Code (Heavily inspired from BioPython, so attribution is only needed if you wholesale copy/paste and edit my slides).
-3. Aggregated Charts (Attribute only for wholesale copy/paste and modification).
-4. Slides with original text content.
+* The "what is an api?" illustration.
+* Presented Code (Heavily inspired from BioPython, so attribution is only needed if you wholesale copy/paste and edit my slides).
+* Aggregated Charts (Attribute only for wholesale copy/paste and modification).
+* Slides with original text content.
 
 In general, give me credit based on your conscious (feel free to contact me and I'll be very flexible with waiving the attribution requirement).
 
