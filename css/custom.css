@@ -1,0 +1,84 @@
+html {
+    /* From http://subtlepatterns.com/?p=824 */
+    background-image: url(../assets/black-paper.png); 
+}
+#reveal h1 {
+text-shadow: 0 1px 0 #333, 0 2px 0 #333333, 0 3px 0 #333, 0 4px 0 #333333, 0 5px 0 #333, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 20px 20px rgba(0, 0, 0, .15);
+}
+.python-yellow {
+    color: #FFCB3C;
+}
+.r-blue {
+    color: #8597BE;
+}
+.blue {
+	color: #38C0FA;
+}
+.others-green {
+    color: rgba( 50, 200, 90, 0.85);
+}
+.hor_row{
+	margin-left: auto;
+	margin-right: auto;
+}
+.hor_row li {
+	display: table-cell !important;
+	text-align: center !important;
+    vertical-align: middle !important;
+}
+.hor_row li a img {
+	max-height: 90px !important;
+	margin-left: 10px !important;
+	margin-right: 10px !important;
+}
+.hor_row li a h1 {
+	max-height: 90px !important;
+	margin-left: 10px !important;
+	margin-right: 10px !important;
+}
+
+.lv_content_iframe {
+	background-color: white !important;
+}
+
+
+.python .state-background {
+	background: url(../assets/python-bg.png) left bottom no-repeat, rgba( 255, 203, 60, 0.3);
+}
+.r .state-background {
+	background: url(../assets/r-logo.png) left bottom no-repeat, rgba( 133, 151, 190, 0.2 );
+}
+.soothe .state-background {
+	background: rgba( 50, 200, 90, 0.2 ) !important;
+}
+
+blockquote, q
+{
+	quotes: none !important;
+}
+
+/*
+Safari doesn't support the quotes attribute, so we do this instead.
+*/
+blockquote:before, blockquote:after, q:before, q:after
+{
+	/*
+	CSS 2; used to remove quotes in case "none" fails below.
+	*/
+	content: "" !important;
+	/*
+	CSS 2.1; will remove quotes if supported, and override the above.
+	User-agents that don't understand "none" should ignore it, and
+	keep the above value. This is here for future compatibility,
+	though I'm not 100% convinced that it's a good idea...
+	*/
+	content: none !important;
+}
+pre {
+	display: block;
+	text-align: left;
+	font-size: 22px;
+	font-family: monospace;
+	line-height: 1.1em;
+	word-wrap: break-word;
+}
