@@ -26,7 +26,7 @@ Use my presentation's implementation of Highcharts and LightView freely. Similar
 
 ###External Libraries:
 Retain **individual licenses**.
-Made using reveal.js, HighCharts, LightView, highlight.js and jQuery.
+Made using [reveal.js](https://github.com/hakimel/reveal.js), [HighCharts](http://www.highcharts.com/), [LightView](http://projects.nickstakenburg.com/lightview), [highlight.js](http://softwaremaniacs.org/soft/highlight/en/) and [jQuery](https://github.com/jquery/jquery).
 
 ####Final Note on Licenses:
 Licenses have been chosen in good faith. Please contact me with issues and I will do my best to resolve them.
