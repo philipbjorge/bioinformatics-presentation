@@ -2,7 +2,10 @@
 ##An interactive presentation by Philip Bjorge
 
 ###Viewing:
-**Presentation with correctly formatted Python in the "functional" branch!**
+**Presentation with correctly formatted (but less easy to read) Python in the "functional" branch!**
+
+The functional branch is viewable at [my website](http://www.philipbjorge.com/bioinformatics-presentation/).
+
 Open up index.html in Chrome (recommended) or Firefox.
 Working presentation code is in "presentation scripts.py"
 
